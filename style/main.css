@@ -193,12 +193,20 @@ hr {
       margin-left: 9px; }
       .game-container .game-message a.keep-playing-button {
         display: none; }
+      .game-container .game-message a.retry-button {
+        display: none; }
+      .game-container .game-message a.loading-button {
+        display: none; }
     .game-container .game-message.game-won {
       background: rgba(237, 194, 46, 0.5);
       color: #f9f6f2; }
+      .game-container .game-message.loading a.loading-button {
+        display: inline-block; }
       .game-container .game-message.game-won a.keep-playing-button {
         display: inline-block; }
-    .game-container .game-message.game-won, .game-container .game-message.game-over {
+      .game-container .game-message.game-won a.retry-button, .game-container .game-message.game-over a.retry-button {
+        display: inline-block; }
+    .game-container .game-message.game-won, .game-container .game-message.game-over, .game-container .game-message.loading {
       display: block; }
 
 .grid-container {

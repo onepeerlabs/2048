@@ -2,9 +2,20 @@ function HTMLActuator() {
   this.tileContainer    = document.querySelector(".tile-container");
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
+  this.visitorContainer    = document.querySelector(".visitor-count");
   this.messageContainer = document.querySelector(".game-message");
 
   this.score = 0;
+}
+
+HTMLActuator.prototype.visitors = async function () {
+  const response = await fetch(`https://fairos.staging.fairdatasociety.org/public-kv?key=visitCount&tableName=2048&sharingRef=0256016edfb06dd283c7931fc0ec218ed30581433dc2a77dc3efe3afc495957f`)
+  if (response.ok) {
+    const data = await response.json();
+    this.visitorContainer.textContent = (parseInt(atob(data.values))+1).toString();
+    return parseInt(atob(data.values));
+  }
+  return 0;
 }
 
 HTMLActuator.prototype.actuate = function (grid, metadata) {
@@ -127,7 +138,6 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
   var message = won ? "You win!" : "Game over!";
-
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
 };
